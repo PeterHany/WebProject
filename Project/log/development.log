@@ -520,3 +520,91 @@ Migrating to CreateProjectModels (20151215183503)
 Migrating to ProjectMig (20151215183155)
   [1m[36mSQL (3.8ms)[0m  [1mDELETE FROM `schema_migrations` WHERE `schema_migrations`.`version` = '20151215183155'[0m
   [1m[35mActiveRecord::SchemaMigration Load (0.5ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36mActiveRecord::SchemaMigration Load (3.6ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to ProjectMig (20151215183155)
+  [1m[35m (8.8ms)[0m  BEGIN
+  [1m[36mSQL (45.2ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151215183155')[0m
+  [1m[35m (25.0ms)[0m  COMMIT
+Migrating to CreateProjectModels (20151215183503)
+DEPRECATION WARNING: `#timestamps` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in up at /home/cse2017/Site/Project/db/migrate/20151215183503_create_project_models.rb:8)
+  [1m[36m (75.7ms)[0m  [1mCREATE TABLE `project_models` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(25), `last_name` varchar(50), `email` varchar(255) DEFAULT '' NOT NULL, `password` varchar(40), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (16.4ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151215183503')[0m
+  [1m[35m (2.3ms)[0m  COMMIT
+Migrating to AlterUsers (20151220122109)
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to AlterUsers (20151220122109)
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to AlterUsers (20151220122109)
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to AlterUsers (20151220122109)
+  [1m[35m (2.4ms)[0m  RENAME TABLE `users` TO `admin_users`
+Mysql2::Error: Can't find file: './Project_db_development/users.frm' (errno: 2): RENAME TABLE `users` TO `admin_users`
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to AlterUsers (20151220122109)
+  [1m[35m (91.3ms)[0m  RENAME TABLE `project_models` TO `admin_users`
+  [1m[36m (66.1ms)[0m  [1mALTER TABLE `admin_users` ADD `username` varchar(25) AFTER `email`[0m
+  [1m[35m (21.9ms)[0m  ALTER TABLE `admin_users` CHANGE `email` `email` varchar(100) DEFAULT '' NOT NULL
+  [1m[36m (44.3ms)[0m  [1mALTER TABLE `admin_users` CHANGE `password` `hashed_password` varchar(40) DEFAULT NULL[0m
+  [1m[35m (43.7ms)[0m  CREATE  INDEX `index_admin_users_on_username`  ON `admin_users` (`username`) 
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.1ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151220122109')
+  [1m[36m (12.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (2.7ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'Project_db_development'
+  AND fk.table_name = 'admin_users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `admin_users`
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to AlterUsers (20151220122109)
+  [1m[35m (20.0ms)[0m  DROP INDEX `index_admin_users_on_username` ON `admin_users`
+  [1m[36m (82.1ms)[0m  [1mALTER TABLE `admin_users` CHANGE `hashed_password` `password` varchar(40) DEFAULT NULL[0m
+  [1m[35m (56.8ms)[0m  ALTER TABLE `admin_users` CHANGE `email` `email` varchar(255) DEFAULT '' NOT NULL
+  [1m[36m (52.6ms)[0m  [1mALTER TABLE `admin_users` DROP `username`[0m
+  [1m[35m (3.0ms)[0m  RENAME TABLE `admin_users` TO `project_models`
+  [1m[36mSQL (12.4ms)[0m  [1mDELETE FROM `schema_migrations` WHERE `schema_migrations`.`version` = '20151220122109'[0m
+Migrating to CreateProjectModels (20151215183503)
+  [1m[35m (4.7ms)[0m  DROP TABLE `project_models`
+  [1m[36mSQL (2.9ms)[0m  [1mDELETE FROM `schema_migrations` WHERE `schema_migrations`.`version` = '20151215183503'[0m
+Migrating to ProjectMig (20151215183155)
+  [1m[35mSQL (13.5ms)[0m  DELETE FROM `schema_migrations` WHERE `schema_migrations`.`version` = '20151215183155'
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to ProjectMig (20151215183155)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151215183155')[0m
+  [1m[35m (1.1ms)[0m  COMMIT
+Migrating to CreateProjectModels (20151215183503)
+DEPRECATION WARNING: `#timestamps` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in up at /home/cse2017/Site/Project/db/migrate/20151215183503_create_project_models.rb:8)
+  [1m[36m (9.8ms)[0m  [1mCREATE TABLE `project_models` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(25), `last_name` varchar(50), `email` varchar(255) DEFAULT '' NOT NULL, `password` varchar(40), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (24.7ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151215183503')[0m
+  [1m[35m (1.6ms)[0m  COMMIT
+Migrating to AlterUsers (20151220122109)
+  [1m[36m (3.1ms)[0m  [1mRENAME TABLE `project_models` TO `admin_users`[0m
+  [1m[35m (48.1ms)[0m  ALTER TABLE `admin_users` ADD `username` varchar(25) AFTER `email`
+  [1m[36m (41.3ms)[0m  [1mALTER TABLE `admin_users` CHANGE `email` `email` varchar(100) DEFAULT '' NOT NULL[0m
+  [1m[35m (41.7ms)[0m  ALTER TABLE `admin_users` CHANGE `password` `hashed_password` varchar(40) DEFAULT NULL
+  [1m[36m (29.7ms)[0m  [1mCREATE  INDEX `index_admin_users_on_username`  ON `admin_users` (`username`) [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (14.3ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151220122109')[0m
+  [1m[35m (2.4ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.2ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'Project_db_development'
+  AND fk.table_name = 'admin_users'
+
+  [1m[36m (0.1ms)[0m  [1mSHOW CREATE TABLE `admin_users`[0m
